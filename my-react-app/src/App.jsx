@@ -1,26 +1,31 @@
-import { useState } from "react"
-
+import { useState } from "react";
+import "../../my-react-app/src/index.css";
+import ColorBtn from "./components/ColorBtn";
 
 function App() {
-const [counter, counterUpdate]=useState(0)
+  const [colors, setColors] = useState([
+    { id: 1, color: "bg-red-400", name: "Red" },
+    { id: 2, color: "bg-green-400", name: "Green" },
+    { id: 3, color: "bg-yellow-400", name: "Yellow" },
+  ]);
+  const [pageColor, setPageColor] = useState("bg-white");
 
-const Add=()=>{
-  console.log('first')
-  if(counter<20)counterUpdate(counter+1)
-}
-
-const Remove=()=>{
-  if(counter>0)counterUpdate(counter-1)
-}
+  const getClickedColor = (selectedColor) => {
+    console.log("hello kitty");
+    setPageColor(selectedColor);
+  };
   return (
-    <>
-    <h1>React Counter project | SDR</h1>
-   {counter}<br/>
-   <button onClick={Add}>Add</button>
-   <button onClick={Remove}>Remove</button>
-    </>
-   
-  )
+    <div className={`${pageColor} w-full h-screen`}>
+      {colors.map((color, index) => (
+        <ColorBtn
+          key={color.id}
+          bgColor={color.color}
+          colorName={color.name}
+          getColor={getClickedColor}
+        />
+      ))}
+    </div>
+  );
 }
 
-export default App
+export default App;
